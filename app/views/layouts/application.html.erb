@@ -14,26 +14,53 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
 
-  <body>
-   <nav>
-      <ul>
-          <li>
-            <a href="/user_sign_in">
-              Sign in
-            </a>
-          </li>
-          <li>
-            <a href="/user_sign_up">
-              Sign up
-            </a>
-          </li>
-        <li>
-          <a href="/">
-            Home
-          </a>
-        </li>
-      </ul>
-    </nav>
+ <body>  
+  <ul>
+    <% if session.fetch(:user_id).blank? %>
+      <li>
+        <a href="/user_sign_in">
+          Sign In
+        </a>
+      </li>
+      <li>
+        <a href="/user_sign_up">
+          Sign Up
+        </a>
+      </li>
+    <% else %>
+      <li>
+        <a href="/bookmarks">
+          My Bookmarks
+        </a>
+      </li>
+      <li>
+        <a href="/user_sign_out">
+          Sign Out
+        </a>
+      </li>
+    <% end %>
+    <li>
+      <a href="/">
+        Home
+      </a>
+    </li>
+  </ul>
+
+  <div class="container">
+    <% if notice.present? %>
+      <div>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div>
+        <%= alert %>
+      </div>
+    <% end %>
+
     <%= yield %>
-  </body>
+  </div>
+</body>
+
 </html>
